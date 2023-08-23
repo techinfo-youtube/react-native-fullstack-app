@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import InputBox from "../../components/Forms/InputBox";
 import SubmitButton from "../../components/Forms/SubmitButton";
 
-const Register = () => {
+const Register = ({ navigation }) => {
   // states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -53,7 +53,10 @@ const Register = () => {
         handleSubmit={handleSubmit}
       />
       <Text style={styles.linkText}>
-        ALready Register Please <Text style={styles.link}>LOGIN</Text>{" "}
+        ALready Register Please{" "}
+        <Text style={styles.link} onPress={() => navigation.navigate("Login")}>
+          LOGIN
+        </Text>{" "}
       </Text>
     </View>
   );
