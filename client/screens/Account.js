@@ -15,7 +15,7 @@ import axios from "axios";
 const Account = () => {
   //global state
   const [state, setState] = useContext(AuthContext);
-  const { user } = state;
+  const { user, token } = state;
   //local state
   const [name, setName] = useState(user?.name);
   const [password, setPassword] = useState(user?.password);
