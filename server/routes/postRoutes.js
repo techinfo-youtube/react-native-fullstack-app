@@ -3,6 +3,7 @@ const { requireSingIn } = require("../controllers/userController");
 const {
   createPostController,
   getAllPostsContoller,
+  getUserPostsController,
 } = require("../controllers/postController");
 
 //router object
@@ -13,6 +14,9 @@ router.post("/create-post", requireSingIn, createPostController);
 
 //GET ALL POSTs
 router.get("/get-all-post", getAllPostsContoller);
+
+//GET USER POSTs
+router.get("/get-user-post", requireSingIn, getUserPostsController);
 
 //export
 module.exports = router;
