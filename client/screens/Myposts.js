@@ -30,7 +30,7 @@ const Myposts = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <PostCard posts={posts} />
+        <PostCard posts={posts} myPostScreen={true} />
         {/* <Text>{JSON.stringify(posts, null, 4)}</Text> */}
       </ScrollView>
       <View style={{ backgroundColor: "#ffffff" }}>

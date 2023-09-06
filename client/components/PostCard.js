@@ -1,14 +1,60 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import { View, Text, StyleSheet, Alert } from "react-native";
+import React, { useState } from "react";
 import moment from "moment";
+import axios from "axios";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { useNavigation } from "@react-navigation/native";
 
-const PostCard = ({ posts }) => {
+const PostCard = ({ posts, myPostScreen }) => {
+  const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
+  //handle delete prompt
+  const handleDeletePropmt = (id) => {
+    Alert.alert("Attention!", "Are You Sure Want to delete this post?", [
+      {
+        text: "Cancel",
+        onPress: () => {
+          console.log("cancel press");
+        },
+      },
+      {
+        text: "Delete",
+        onPress: () => handleDeletePost(id),
+      },
+    ]);
+  };
+
+  //delete post data
+  const handleDeletePost = async (id) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.delete(`/post/delete-post/${id}`);
+      setLoading(false);
+      alert(data?.message);
+      navigation.navigate("Home");
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      alert(error);
+    }
+  };
   return (
     <View>
       <Text style={styles.heading}>Total Posts {posts?.length}</Text>
       {posts?.map((post, i) => (
         <View style={styles.card} key={i}>
+          {myPostScreen && (
+            <View>
+              <Text style={{ textAlign: "right" }}>
+                <FontAwesome5
+                  name="trash"
+                  size={16}
+                  color={"red"}
+                  onPress={() => handleDeletePropmt(post?._id)}
+                />
+              </Text>
+            </View>
+          )}
           <Text style={styles.title}>Title : {post?.title}</Text>
           <Text style={styles.desc}> {post?.description}</Text>
           <View style={styles.footer}>
