@@ -1,52 +1,29 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  RefreshControl,
-} from "react-native";
-import React, { useContext, useState, useCallback, useEffect } from "react";
-import { AuthContext } from "../context/authContext";
-import FooterMenu from "../components/Menus/FooterMenu";
-import { PostContext } from "../context/postContext";
-import PostCard from "../components/PostCard";
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import Layout from "../components/Layout/Layout";
+import Categories from "../components/category/Categories";
+import Banner from "../components/Banner/Banner";
+import Products from "../components/Products/Products";
+import Header from "../components/Layout/Header";
 
 const Home = () => {
-  //global state
-  const [posts, getAllPosts] = useContext(PostContext);
-  const [refreshing, setRefreshing] = useState(false);
-  useEffect(() => {}, [getAllPosts]);
-  //refresh controll
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    getAllPosts;
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
   return (
-    <View style={styles.container}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      >
-        <PostCard posts={posts} />
-        {/* <Text>{JSON.stringify(posts, null, 4)}</Text> */}
-      </ScrollView>
-      <View style={{ backgroundColor: "#ffffff" }}>
-        <FooterMenu />
-      </View>
-    </View>
+    <Layout>
+      <Header />
+      <Categories />
+      <Banner />
+      <Products />
+    </Layout>
   );
 };
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
-
-export default Home;
